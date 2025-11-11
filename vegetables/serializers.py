@@ -6,7 +6,7 @@ class VegetableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vegetable
-        fields = ['id', 'vendor', 'vendor_name', 'name', 'description', 'price_per_kg', 'available_quantity', 'image', 'date_posted']
+        fields = ['id', 'vendor_name', 'name', 'description', 'price_per_kg', 'available_quantity']
         read_only_fields = ['vendor']
 
         
