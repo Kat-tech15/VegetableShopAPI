@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer, LoginSerializer, EmptySerializer
 
 
@@ -32,11 +33,12 @@ class LoginView(generics.GenericAPIView):
         user = authenticate(username=username, password=password)
         
         if user:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key,
-                             'username': user.username,
+            refresh = RefreshToken.for_user(user)
+            return Response({'access': str(refresh),
+                             'refresh': str(refresh.access_token),
+                             'name': user.username,
                              'email': user.email,
-                             'message': 'Log in successful!'
+                             
             })
         return Response({'message': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -45,11 +47,7 @@ class LogoutView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        try:
-            request.user.auth_token.delete()
-        except AttributeError:
-            return Response({'message': 'No active session found.'}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({'message': f'Error logging out: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
-        
+        if hasattr(request, 'access_token'):
+            request.user.access_token.delete()
+            
         return Response({'message': 'Logged out successfully!'}, status=status.HTTP_200_OK)
