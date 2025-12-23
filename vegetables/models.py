@@ -7,7 +7,7 @@ class Vegetable(models.Model):
     description = models.TextField(blank=True, null=True)
     price_per_kg = models.DecimalField(max_digits=8, decimal_places=2)
     available_quantity = models.DecimalField(max_digits=8, decimal_places=2, help_text='In Kilograms')
-    #image = models.ImageField(upload_to='vegetable_images', null=True, blank=True)
+    image = models.ImageField(upload_to='vegetable_images', null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
