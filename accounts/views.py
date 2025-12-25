@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-from rest_framework import permissions, generics
-=======
->>>>>>> 4dc37a49b7dad19216068153343c7b64f103f831
+:
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-<<<<<<< HEAD
-from .serializers import UserSerializer
-=======
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer, LoginSerializer, EmptySerializer
->>>>>>> 4dc37a49b7dad19216068153343c7b64f103f831
 
 
 class RegisterView(generics.GenericAPIView):
@@ -29,12 +22,6 @@ class RegisterView(generics.GenericAPIView):
     
 
 class LoginView(generics.GenericAPIView):
-<<<<<<< HEAD
-    serializer_class = UserSerializer
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-=======
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
@@ -43,7 +30,6 @@ class LoginView(generics.GenericAPIView):
 
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
->>>>>>> 4dc37a49b7dad19216068153343c7b64f103f831
 
         user = authenticate(username=username, password=password)
         
@@ -58,10 +44,7 @@ class LoginView(generics.GenericAPIView):
         return Response({'message': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(generics.GenericAPIView):
-<<<<<<< HEAD
-=======
     serializer_class = EmptySerializer
->>>>>>> 4dc37a49b7dad19216068153343c7b64f103f831
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
