@@ -1,12 +1,7 @@
 asgiref==3.10.0
 Django==5.2.8
 djangorestframework==3.16.1
-<<<<<<< HEAD
-drf-spectacular==0.29.0
-drf-spectacular-sidecar==2025.10.1
-=======
 djangorestframework_simplejwt==5.5.1
->>>>>>> 4dc37a49b7dad19216068153343c7b64f103f831
 drf-yasg==1.21.11
 gunicorn==23.0.0
 inflection==0.5.1
