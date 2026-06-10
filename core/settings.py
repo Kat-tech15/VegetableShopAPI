@@ -29,6 +29,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
+# CORS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",   
+    "http://127.0.0.1:5173",
+]
 
 
 # Application definition
@@ -44,11 +49,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'accounts',
+    'corsheaders',
     'vegetables',
     'orders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
